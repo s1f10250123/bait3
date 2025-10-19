@@ -51,6 +51,12 @@
     button:hover {
       background-color: #0056b3;
     }
+    .reset-btn {
+      background-color: #dc3545;
+    }
+    .reset-btn:hover {
+      background-color: #a71d2a;
+    }
     .result {
       background: #fff;
       padding: 15px;
@@ -71,10 +77,8 @@
     th {
       background-color: #f0f0f0;
     }
-    .summary-table th, .summary-table td {
-      text-align: right;
-    }
-    .summary-table th:first-child, .summary-table td:first-child {
+    .summary-table th:first-child,
+    .summary-table td:first-child {
       text-align: left;
     }
   </style>
@@ -87,6 +91,7 @@
 
 <button onclick="addDay()">日を追加</button>
 <button onclick="calculate()">計算する</button>
+<button class="reset-btn" onclick="resetAll()">リセット</button>
 
 <div id="result" class="result"></div>
 
@@ -149,7 +154,6 @@
 
     let grandTotal = 0;
 
-    // 入力を集計
     allDays.forEach(day => {
       denominations.forEach(d => {
         const input = day.querySelector(`.${d.class}`);
@@ -159,7 +163,6 @@
       });
     });
 
-    // 総合計のみ表示
     let summaryHTML = `<b>総合計：</b><table class="summary-table">
       <tr><th>金額</th><th>枚数</th><th>小計</th></tr>`;
 
@@ -178,6 +181,17 @@
     </tr></table>`;
 
     document.getElementById("result").innerHTML = summaryHTML;
+  }
+
+  function resetAll() {
+    // 全ての「日」を削除
+    document.getElementById("inputs").innerHTML = "";
+    // カウンターをリセット
+    dayCount = 0;
+    // 最初の1日を再生成
+    addDay();
+    // 結果をリセット
+    document.getElementById("result").innerHTML = "";
   }
 </script>
 
